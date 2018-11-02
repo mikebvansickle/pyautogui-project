@@ -11,7 +11,7 @@ pyautogui.FAILSAFE = True #Moving mouse to upper-left kills the operation
 #Object to track cursor movement/functions
 class Cursor:
     def __init__(self):
-        self.quadrant = 1
+        self.quadrant = 3
         self.increment = 0
         self.totalIncrement = 6
         #Set these manually
@@ -62,11 +62,11 @@ class Cursor:
         if self.quadrant == 3:
             print("Checking Q3. . .")
             x = self.screenWidth-self.marginRight-(self.increment*self.incrementWidth)
-            y = self.screenHeight-self.marginBottom-(self.increment*self.incrementHeight)
+            y = self.screenHeight-self.marginBottom-(self.increment*self.incrementHeight)+(self.incrementHeight*0.75)
         if self.quadrant == 4:
             print("Checking Q4. . .")
             x = self.marginLeft+(self.increment*self.incrementWidth)
-            y = self.screenHeight-self.marginBottom-(self.increment*self.incrementHeight)
+            y = self.screenHeight-self.marginBottom-(self.increment*self.incrementHeight)+(self.incrementHeight*0.75)
 
         pyautogui.moveTo(x, y, duration=0.5)
         pyautogui.click()
