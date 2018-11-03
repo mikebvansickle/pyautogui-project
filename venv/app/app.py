@@ -11,14 +11,14 @@ pyautogui.FAILSAFE = True #Moving mouse to upper-left kills the operation
 #Object to track cursor movement/functions
 class Cursor:
     def __init__(self):
-        self.quadrant = 3
+        self.quadrant = 1
         self.increment = 0
         self.totalIncrement = 6
         #Set these manually
-        self.marginTop = 60
+        self.marginTop = 80
         self.marginBottom = 300
-        self.marginLeft = 60
-        self.marginRight = 60
+        self.marginLeft = 80
+        self.marginRight = 80
         #Fetches screen dimensions (only primary display)
         self.screenWidth = pyautogui.size()[0]
         self.screenHeight = pyautogui.size()[1]
@@ -30,13 +30,12 @@ class Cursor:
     def findItems(self):
         print("findItems()")
         items = []
-        for i in range(1, 3):
-            try:
-                x, y, j, k = pyautogui.locateOnScreen('images/TEST/TEST'+str(i)+'.png')
-                coord = [x, y]
-                items.append(coord)
-            except TypeError:
-                print('images/TEST/TEST'+str(i)+'.png not found within the screen region')
+        try:
+            x, y, j, k = pyautogui.locateOnScreen('images/pickup.png')
+            coord = [x, y]
+            items.append(coord)
+        except TypeError:
+            print('no items were found within the screen region')
 
         if len(items) < 1:
             return self.moveCharacter()
@@ -110,9 +109,11 @@ class Cursor:
     def pickupItem(self, list):
         print("pickupItem(list)")
         pyautogui.moveTo(list[0], list[1])
-        pyautogui.doubleClick(interval=0.5)
+        pyautogui.keyDown('Alt')
+        pyautogui.click()
+        pyautogui.keyUp('Alt')
         print("Waiting for character to move to item position")
-        time.sleep(5)
+        time.sleep(3)
         return self.findItems()
 
 
