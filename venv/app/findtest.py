@@ -6,7 +6,7 @@ import math
 def findItems():
     print("findItems()")
     items = []
-    for i in range(1, 7):
+    for i in range(1, 3):
         try:
             x, y, j, k = pyautogui.locateOnScreen('images/TEST/TEST'+str(i)+'.png')
             coord = [x, y]
@@ -15,10 +15,24 @@ def findItems():
             print('images/TEST/TEST'+str(i)+'.png not found within the screen region')
 
     try:
-        return closestPickup(items)
+        radius = 40
+        for item in items:
+            pyautogui.moveTo(item[0]+26, item[1]+27)
+            x = item[0]+23 #x-location for circling (looks more clean than exact center)
+            y = item[1]+19 #y-location for circling (looks more clean than exact center)
+            time.sleep(1)
+            for i in range(0,64): #Circles mouse around item twice
+                pyautogui.moveTo(radius*math.cos(i/16*math.pi)+x,radius*math.sin(i/16*math.pi)+y)
+        return findItems()
     except IndexError:
         print("TypeError in findItems() due to no items found (\"NoneType Object\" returned)")
         return findItems()
+
+    #try:
+    #    return closestPickup(items)
+    #except IndexError:
+    #    print("TypeError in findItems() due to no items found (\"NoneType Object\" returned)")
+    #    return findItems()
 
 def pickupItem(list):
     print("pickupItem(list)")
