@@ -2,27 +2,35 @@ import pyautogui
 import time
 from PIL import Image
 import math
+from datetime import datetime
 
 def findItems():
     print("findItems()")
     items = []
-    for i in range(1, 3):
+    initTime = datetime.now()
+    for i in range(1, 7):
         try:
-            x, y, j, k = pyautogui.locateOnScreen('images/TEST/TEST'+str(i)+'.png')
+            x, y, j, k = pyautogui.locateOnScreen('images/TEST/TEST'+str(i)+'.png', confidence=0.8)
             coord = [x, y]
             items.append(coord)
         except TypeError:
             print('images/TEST/TEST'+str(i)+'.png not found within the screen region')
-
+    print("Image search finished in:", datetime.now() - initTime)
     try:
+        itemNum = 1
         radius = 40
+        itemTime = datetime.now()
         for item in items:
             pyautogui.moveTo(item[0]+26, item[1]+27)
+            print("Moved to item: ",itemNum, sep='')
+            itemNum += 1
             x = item[0]+23 #x-location for circling (looks more clean than exact center)
             y = item[1]+19 #y-location for circling (looks more clean than exact center)
-            time.sleep(1)
-            for i in range(0,64): #Circles mouse around item twice
-                pyautogui.moveTo(radius*math.cos(i/16*math.pi)+x,radius*math.sin(i/16*math.pi)+y)
+            #time.sleep(0.25)
+            #for i in range(0,64): #Circles mouse around item twice
+            #    pyautogui.moveTo(radius*math.cos(i/16*math.pi)+x,radius*math.sin(i/16*math.pi)+y)
+        print("All images clicked in:", datetime.now() - itemTime)
+        print("Entire process finished in:", datetime.now() - initTime)
         return findItems()
     except IndexError:
         print("TypeError in findItems() due to no items found (\"NoneType Object\" returned)")
@@ -37,7 +45,7 @@ def findItems():
 def pickupItem(list):
     print("pickupItem(list)")
     pyautogui.moveTo(list[0], list[1])
-    pyautogui.doubleClick(interval=0.5)
+    pyautogui.doubleClick(interval=0.05)
     print("Waiting for character to move to item position")
     time.sleep(5)
     return findItems()
