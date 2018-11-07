@@ -1,4 +1,4 @@
-# pyautogui-project
+# Pyautogui Automation Project
 
 ## Objective
 To create an automation bot for a video game as a proof of concept
