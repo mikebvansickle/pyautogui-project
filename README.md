@@ -3,11 +3,11 @@
 ## Objective
 To create an automation bot for a video game as a proof of concept
 ### Feature Checklist
-Pickup Items **Yes**
-Move Randomly **Yes**
-Move with purpose **No**
-Attack/Interact with dynamic content **No**
-Monitor specific regions of the screen for various situations **No**
+* Pickup Items **Yes**
+* Move Randomly **Yes**
+* Move with purpose **No**
+* Attack/Interact with dynamic content **No**
+* Monitor specific regions of the screen for various situations **No**
 
 ## Version Information
 ##### Using Python 3.7.1
